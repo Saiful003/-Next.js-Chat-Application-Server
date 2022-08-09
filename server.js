@@ -21,6 +21,8 @@ const io = new Server(httpServer, {
 io.on("connection", (socket) => {
   socket.on("connectingUser", (data) => {
     socket.join(data.room);
+    // sent a welcoming message to this user
+    socket.emit("welcomingMessage", { wlcMsg: `${data.user} is joined` });
   });
 
   socket.on("sendingMessage", (data) => {
