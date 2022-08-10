@@ -11,18 +11,18 @@ const httpServer = createServer(app);
 const io = new Server(httpServer, {
   /* options */
   cors: {
-    origin: "https://next-js-chat-application-client.vercel.app",
+    origin: "http://localhost:3000",
     methods: ["GET", "POST"],
   },
 });
-
-// for handiling some event that are rising anywhere we are use io.on method
 
 io.on("connection", (socket) => {
   socket.on("connectingUser", (data) => {
     socket.join(data.room);
     // sent a welcoming message to this user
-    socket.emit("welcomingMessage", { wlcMsg: `${data.user} is joined` });
+    socket.broadcast.emit("welcomingMessage", {
+      wlcMsg: `${data.user} is joined`,
+    });
   });
 
   socket.on("sendingMessage", (data) => {
