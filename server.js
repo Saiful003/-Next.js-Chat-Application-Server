@@ -13,20 +13,19 @@ const io = new Server(httpServer, {
   cors: {
     origin: "http://localhost:3000",
     methods: ["GET", "POST"],
+    credentials: true,
   },
 });
 
 io.on("connection", (socket) => {
   socket.on("connectingUser", (data) => {
     socket.join(data.room);
-    // sent a welcoming message to this user
-    socket.broadcast.emit("welcomingMessage", {
-      wlcMsg: `${data.user} is joined`,
+    socket.on("sendingMessage", (msg) => {
+      socket.to(data.room).emit("receivingMessage", msg);
     });
-  });
-
-  socket.on("sendingMessage", (data) => {
-    socket.broadcast.emit("receivingMessage", data);
+    socket.on("typingEvent", (typeData) => {
+      socket.to(data.room).emit("raisingisTypingEvent", typeData);
+    });
   });
 });
 
