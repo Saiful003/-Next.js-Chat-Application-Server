@@ -17,6 +17,10 @@ const io = new Server(httpServer, {
   },
 });
 
+app.get("/", (req, res) => {
+  res.send("Hey this is my API running 🥳");
+});
+
 io.on("connection", (socket) => {
   socket.on("connectingUser", (data) => {
     socket.join(data.room);
