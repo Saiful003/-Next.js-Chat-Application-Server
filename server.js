@@ -11,7 +11,7 @@ const httpServer = createServer(app);
 const io = new Server(httpServer, {
   /* options */
   cors: {
-    origin: "https://next-js-chat-application-client.vercel.app/",
+    origin: "*",
     methods: ["GET", "POST"],
     credentials: true,
   },
