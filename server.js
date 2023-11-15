@@ -12,8 +12,8 @@ const io = new Server(httpServer, {
   /* options */
   cors: {
     origin: "*",
-    methods: ["GET", "POST"],
-    credentials: true,
+    // methods: ["GET", "POST"],
+    // credentials: true,
   },
 });
 
