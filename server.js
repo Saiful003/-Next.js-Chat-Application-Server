@@ -9,12 +9,13 @@ const app = express();
 const httpServer = createServer(app);
 
 const io = new Server(httpServer, {
-  /* options */
   cors: {
     origin: "*",
-    // methods: ["GET", "POST"],
-    // credentials: true,
+    methods: ["GET", "POST"],
+    transports: ["websocket", "polling"],
+    credentials: true,
   },
+  allowEIO3: true,
 });
 
 app.get("/", (req, res) => {
