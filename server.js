@@ -17,6 +17,14 @@ const io = new Server(httpServer, {
 app.get("/", (req, res) => {
   res.send("Hey this is my API running 🥳");
 });
+app.get("/getPosts", (req, res) => {
+  res.send([
+    {
+      name: "Saiful Islam Shanto",
+      profession: "Software Engineer",
+    },
+  ]);
+});
 
 io.on("connection", (socket) => {
   socket.on("connectingUser", (data) => {
