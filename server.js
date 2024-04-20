@@ -26,11 +26,16 @@ app.get("/getPosts", (req, res) => {
   ]);
 });
 
+// socket stuff
 io.on("connection", (socket) => {
   socket.on("connectingUser", (data) => {
     socket.join(data.room);
     socket.on("sendingMessage", (msg) => {
+      // broadcasting to all connected client's
       socket.to(data.room).emit("receivingMessage", msg);
+      socket
+        .to(data.room)
+        .emit("notification", "notification event raised from server");
     });
     socket.on("typingEvent", (typeData) => {
       socket.to(data.room).emit("raisingisTypingEvent", typeData);
